@@ -322,3 +322,15 @@ def plot_xy_rasters(xfile: str, yfile: str, lower_pct: float = 10, upper_pct: fl
     
     plt.tight_layout()
     plt.show()
+
+def riofiller_inpaint(fipath, fopath, siter=0):
+    fopath = fopath.replace('.tif', f'_{siter}.tif')
+    if not os.path.isfile(fopath):
+        src,data = load_data_obj(fipath)
+        data, mask = split_data_and_mask(data,src)
+        data_res = fill_rasterio(data,si=siter)
+    
+        write_raster(fopath, data_res, fipath)
+        print(f'newly created :{fopath}')
+    else:
+        print(f'already created :{fopath}')
