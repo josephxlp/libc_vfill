@@ -50,7 +50,12 @@ def interpolate_missing_values_smodel(data, model_type='catboost'):
     if model_type == 'rf':
         model = RandomForestRegressor(n_estimators=100, random_state=42)
     elif model_type == 'catboost':
-        model = CatBoostRegressor(iterations=1000, verbose=100, task_type='GPU' if 'cuda' in device else 'CPU', devices=[int(device.split(':')[-1])] if 'cuda' in device else None)
+        model = CatBoostRegressor(iterations=2000, 
+                                  verbose=200, 
+                                  use_best_model=True,
+                                  early_stopping_rounds=500,
+                                  task_type='GPU' if 'cuda' in device else 'CPU', 
+                                  devices=[int(device.split(':')[-1])] if 'cuda' in device else None)
     elif model_type == 'lightgbm':
         model = LGBMRegressor(n_estimators=100, learning_rate=0.1)
     elif model_type == 'xgboost':
@@ -80,7 +85,14 @@ def interpolate_missing_values_emodel(data, model_type='catboost', n_seeds=5):
         if model_type == 'rf':
             model = RandomForestRegressor(n_estimators=100, random_state=seed)
         elif model_type == 'catboost':
-            model = CatBoostRegressor(iterations=10_000, verbose=500, task_type='GPU' if 'cuda' in device else 'CPU', devices=[int(device.split(':')[-1])] if 'cuda' in device else None, random_seed=seed)
+            model = CatBoostRegressor(iterations=2000, 
+                                  verbose=500, 
+                                  use_best_model=True,
+                                  early_stopping_rounds=250,
+                                  task_type='GPU' if 'cuda' in device else 'CPU', 
+                                  devices=[int(device.split(':')[-1])] if 'cuda' in device else None)
+            
+            #model = CatBoostRegressor(iterations=2000, verbose=200, task_type='GPU' if 'cuda' in device else 'CPU', devices=[int(device.split(':')[-1])] if 'cuda' in device else None, random_seed=seed)
         elif model_type == 'lightgbm':
             model = LGBMRegressor(n_estimators=100, learning_rate=0.1, random_state=seed)
         elif model_type == 'xgboost':
