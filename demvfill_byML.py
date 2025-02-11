@@ -100,4 +100,4 @@ if __name__ == '__main__':
         else:
             print(f'file aready created\nsaved at {dem_opath}')
 
-# instead of training just one model given model type, use at least 5 seeds to create an ensemble to train and predict
+## instead of using ml, can you apply a cnn or unet with pytorch, and save the model same place as dem_opath
