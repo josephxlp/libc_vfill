@@ -46,7 +46,7 @@ def demvfill_unspervised(outdir,tiles_xdpath,tilename,method='riointerp'):
 
 
 X = 30
-method = 'riointerp' # mlinterps #mlinterpe
+method = 'mlinterps' #riointerp mlinterps #mlinterpe
 si = 0 # smoothing_iterations for riointerp
 if __name__ == '__main__':
     ti = time.perf_counter()
